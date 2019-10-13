@@ -6,9 +6,13 @@
 #define IOI_ZWERGEN_GRAPH_H
 #include "Node.h"
 #include <vector>
+#include <unordered_map>
+
 using namespace std;
 struct Graph{
     vector<Node*> nodes;
+    unordered_map<string,Node*> nodes_map;
+    Node* getNode(const string& key) const;
     void addNode(Node* newNode);
     Node* containsNode(Node* nodeTested);
     void addEdge(string& str_node1, string& str_node2, char& comparator);

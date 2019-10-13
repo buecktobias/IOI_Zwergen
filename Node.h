@@ -14,8 +14,8 @@ using namespace std;
 struct Node{
     string name;
     vector<Edge> edges;
-    explicit Node(string name) : name(std::move(name)) {}
-    [[nodiscard]] vector<Node> getNeighbours() const;
+    explicit Node(string name);
+    [[nodiscard]] vector<Node*> getNeighbours() const;
     void addEdge(const Edge& newEdge);
     bool operator==(const Node &rhs) const;
     [[nodiscard]] string toString() const;

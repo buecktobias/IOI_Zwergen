@@ -7,20 +7,24 @@
 using namespace std;
 
 
-vector<Node*> nodes;
 
 void Graph::addNode(Node* newNode){
     this->nodes.push_back(newNode);
+    this->nodes_map[newNode->name] = newNode;
 }
 
 Node* Graph::containsNode(Node* nodeTested){
     for(Node* node: this->nodes){
-        if(node == nodeTested){
+        if(node->name == nodeTested->name){
             return node;
         }
     }
     addNode(nodeTested);
     return nodeTested;
+}
+
+Node* Graph::getNode(const string& key) const{
+    return this->nodes_map.at(key);
 }
 
 void Graph::addEdge(string& str_node1, string& str_node2, char& comparator){
@@ -42,6 +46,7 @@ void Graph::addEdge(string& str_node1, string& str_node2, char& comparator){
     node1->addEdge(newEdge);
     node2->addEdge(newEdge);
 }
+
 
 ostream &operator<<(ostream &os, const Graph &graph) {
     string out;

@@ -4,9 +4,14 @@
 
 #ifndef IOI_ZWERGEN_EDGE_H
 #define IOI_ZWERGEN_EDGE_H
-#include "Node.h"
+
 using namespace std;
+
+
+struct Node;
+
 struct Edge{
-    Node* from,to;
+    Node* from;
+    Node* to;
 };
 #endif //IOI_ZWERGEN_EDGE_H
