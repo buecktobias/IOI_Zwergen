@@ -10,9 +10,9 @@
 
 using namespace std;
 struct Graph{
-    list<Node*> nodes;
     unordered_map<string, Node*> nodes_map;
     Node* getNode(const string& key) const;
+    vector<Node*> getNodes() const;
     void addNode(Node* newNode);
     Node* containsNode(Node* nodeTested);
     void addEdge(string& str_node1, string& str_node2, char& comparator);

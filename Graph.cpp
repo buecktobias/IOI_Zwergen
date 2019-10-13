@@ -9,18 +9,26 @@ using namespace std;
 
 
 void Graph::addNode(Node* newNode){
-    this->nodes.push_back(newNode);
     this->nodes_map[newNode->name] = newNode;
 }
 
 Node* Graph::containsNode(Node* nodeTested){
-    for(Node* node: this->nodes){
-        if(node->name == nodeTested->name){
-            return node;
-        }
+    auto got = this->nodes_map.find (nodeTested->name);
+    if(got != this->nodes_map.end()){
+        return got->second;
     }
     addNode(nodeTested);
     return nodeTested;
+}
+
+vector<Node*> Graph::getNodes() const{
+    vector<Node*> nodes(this->nodes_map.size());
+    int i = 0;
+    for(pair<string, Node*> kv: this->nodes_map){
+        nodes[i] = kv.second;
+        i++;
+    }
+    return nodes;
 }
 
 Node* Graph::getNode(const string& key) const{
@@ -46,7 +54,7 @@ void Graph::addEdge(string& str_node1, string& str_node2, char& comparator){
 
 ostream &operator<<(ostream &os, const Graph &graph) {
     string out;
-    for(Node* node: graph.nodes){
+    for(Node* node: graph.getNodes()){
         out += node->toString();
     }
     os << out;

@@ -19,7 +19,7 @@ void measureTime(void (*f)()){
     chrono::steady_clock::time_point begin = std::chrono::steady_clock::now();
     f();
     chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
-    std::cout << "Time difference = " << std::chrono::duration_cast<std::chrono::milliseconds> (end - begin).count() << "[ms]" << endl;
+    std::cout << "Time difference = " << std::chrono::duration_cast<std::chrono::nanoseconds> (end - begin).count() << "[ns]" << endl;
 }
 
 
@@ -117,8 +117,8 @@ void addAllNodesVisitedToVisitedBefore(unordered_map<string, bool>& visited, uno
 
 bool isCyclic(const Graph& g){
 
-    unordered_map<string, bool> visited(g.nodes.size());
-    for(Node* node: g.nodes){
+    unordered_map<string, bool> visited(g.nodes_map.size());
+    for(Node* node: g.getNodes()){
         visited[node->name] = false;
     }
     unordered_set<string> visitedBefore;
@@ -168,6 +168,7 @@ void test(){
     char smaller = '<';
     char bigger = '>';
 
+    chrono::steady_clock::time_point begin = std::chrono::steady_clock::now();
     g.addEdge(tobias,martin, smaller);
     g.addEdge(tobias,lisa, bigger);
     g.addEdge(lilli,lisa, bigger);
@@ -175,10 +176,13 @@ void test(){
     g.addEdge(tom,martin, smaller);
     g.addEdge(lea,lisa, bigger);
     g.addEdge(sebastian,tobias, bigger);
+    chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
+    std::cout << "Adding of Edges = " << std::chrono::duration_cast<std::chrono::nanoseconds> (end - begin).count() << "[ns]" << endl;
     cout << (isCyclic(g) ? "impossible" : "possible") << endl;
 }
 
 int main() {
+    exercise();
     measureTime(test);
     return 0;
 }
