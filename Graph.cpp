@@ -12,6 +12,26 @@ void Graph::addNode(Node* newNode){
     this->nodes_map[newNode->name] = newNode;
 }
 
+
+Graph::Graph(unordered_set<string>& allNodes, vector<Edge>& allEdges) {
+    this->nodes_map.reserve(allNodes.size());
+    for(string nodeName: allNodes){
+        this->nodes_map[nodeName] = new Node(nodeName);
+    }
+    Node* node1;
+    Node* node2;
+    for(const Edge& edge: allEdges){
+        node1 = getNode(edge.name1);
+        node2 = getNode(edge.name2);
+        if(edge.comparator == '>'){
+            node1->addNeighbour(node2);
+        }else if(edge.comparator == '<'){
+            node2->addNeighbour(node1);
+        }else{
+            __throw_invalid_argument("comparator is incorrect !!");
+        }
+    }
+}
 Node* Graph::containsNode(Node* nodeTested){
     auto got = this->nodes_map.find (nodeTested->name);
     if(got != this->nodes_map.end()){

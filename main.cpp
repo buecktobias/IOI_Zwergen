@@ -8,10 +8,13 @@
 #include <unistd.h>
 #include <unordered_map>
 #include <unordered_set>
+#include <utility>
 #include "Graph.h"
-
+#include "Edge.h"
 
 struct sysinfo memInfo;
+
+
 
 using namespace std;
 
@@ -116,7 +119,6 @@ void addAllNodesVisitedToVisitedBefore(unordered_map<string, bool>& visited, uno
 }
 
 bool isCyclic(const Graph& g){
-
     unordered_map<string, bool> visited(g.nodes_map.size());
     for(Node* node: g.getNodes()){
         visited[node->name] = false;
@@ -136,27 +138,36 @@ bool isCyclic(const Graph& g){
 void exercise(){
     // INPUT
 
-    Graph graph = Graph();
+
     int amountOfComparisons;
     cin >> amountOfComparisons;
+
+    unordered_set<string> allNodes;
+    allNodes.reserve(amountOfComparisons);
+    vector<Edge> edges;
+    string name1,name2;
+    char comparator;
     for(int i = 0; i < amountOfComparisons; i++){
-        string name1,name2;
-        char comparator;
         cin >> name1;
         cin >> comparator;
         cin >> name2;
-        graph.addEdge(name1,name2,comparator);
+        allNodes.insert(name1);
+        allNodes.insert(name2);
+        edges.push_back(Edge(name1,name2,comparator));
     }
+
+    Graph graph = Graph(allNodes, edges);
 
     chrono::steady_clock::time_point begin = std::chrono::steady_clock::now();
     string result;
     result = isCyclic(graph) ? "impossible" : "possible";
     cout << result << endl;
     chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
-    std::cout << "Time difference = " << std::chrono::duration_cast<std::chrono::nanoseconds> (end - begin).count() << "[ns]" << endl;
+    //std::cout << "Time difference = " << std::chrono::duration_cast<std::chrono::nanoseconds> (end - begin).count() << "[ns]" << endl;
 }
 
 void test(){
+    /*
     Graph g  = Graph();
     string tobias = "Tobias";
     string martin = "Martin";
@@ -179,10 +190,10 @@ void test(){
     chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
     std::cout << "Adding of Edges = " << std::chrono::duration_cast<std::chrono::nanoseconds> (end - begin).count() << "[ns]" << endl;
     cout << (isCyclic(g) ? "impossible" : "possible") << endl;
+     */
 }
 
 int main() {
     exercise();
-    measureTime(test);
     return 0;
 }

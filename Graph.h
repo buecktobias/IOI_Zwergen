@@ -7,9 +7,11 @@
 #include "Node.h"
 #include <vector>
 #include <unordered_map>
+#include "Edge.h"
 
 using namespace std;
 struct Graph{
+    explicit Graph(unordered_set<string>& allNodes, vector<Edge>& allEdges);
     unordered_map<string, Node*> nodes_map;
     Node* getNode(const string& key) const;
     vector<Node*> getNodes() const;
