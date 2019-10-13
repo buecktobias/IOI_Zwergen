@@ -8,18 +8,17 @@
 #include <string>
 #include <vector>
 #include <list>
-#include "Edge.h"
+#include <unordered_set>
+
 
 using namespace std;
 
 struct Node{
     string name;
-    list<Edge> edges;
-    list<Node*> neighbours;
+    unordered_set<Node*> neighbours;
     void addNeighbour(Node* node);
     explicit Node(string name);
-    [[nodiscard]] list<Node*> getNeighbours() const;
-    void addEdge(const Edge& newEdge);
+    [[nodiscard]] unordered_set<Node*> getNeighbours() const;
     bool operator==(const Node &rhs) const;
     [[nodiscard]] string toString() const;
     friend ostream &operator<<(ostream &os, const Node &node);

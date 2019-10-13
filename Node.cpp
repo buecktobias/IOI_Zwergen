@@ -8,18 +8,15 @@
 
 using namespace std;
 
-[[nodiscard]] list<Node*> Node::getNeighbours() const{
+[[nodiscard]] unordered_set<Node*> Node::getNeighbours() const{
     return neighbours;
 }
 Node::Node(string name):name(std::move(name)) {}
 
 void Node::addNeighbour(Node *node) {
-    this->neighbours.push_back(node);
+    this->neighbours.insert(node);
 }
 
-void Node::addEdge(const Edge& newEdge){
-    this->edges.push_back(newEdge);
-}
 
 bool Node::operator==(const Node &rhs) const {
     return name == rhs.name;
@@ -27,7 +24,7 @@ bool Node::operator==(const Node &rhs) const {
 
 [[nodiscard]] string Node::toString() const {
     string nodesString;
-    list<Node*> neighbours = this->getNeighbours();
+    unordered_set<Node*> neighbours = this->getNeighbours();
     for(Node* node: neighbours){
         nodesString += node->name;
         nodesString += ", ";

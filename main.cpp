@@ -122,12 +122,13 @@ bool isCyclic(const Graph& g){
         visited[node->name] = false;
     }
     unordered_set<string> visitedBefore;
-    while(nodeNotVisited(g, visited) != nullptr){
-        Node* node = nodeNotVisited(g,visited);
+    Node* node = nodeNotVisited(g,visited);
+    while(node != nullptr){
         if(dfs(g,node,visited, visitedBefore)){
             return true;
         }
         addAllNodesVisitedToVisitedBefore(visited,visitedBefore);
+        node = nodeNotVisited(g,visited);
     }
     return false;
 }
@@ -147,13 +148,37 @@ void exercise(){
         graph.addEdge(name1,name2,comparator);
     }
 
+    chrono::steady_clock::time_point begin = std::chrono::steady_clock::now();
     string result;
     result = isCyclic(graph) ? "impossible" : "possible";
     cout << result << endl;
+    chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
+    std::cout << "Time difference = " << std::chrono::duration_cast<std::chrono::nanoseconds> (end - begin).count() << "[ns]" << endl;
 }
 
+void test(){
+    Graph g  = Graph();
+    string tobias = "Tobias";
+    string martin = "Martin";
+    string sebastian = "Sebastian";
+    string tom = "Tom";
+    string lisa = "Lisa";
+    string lea = "Lea";
+    string lilli = "Lilli";
+    char smaller = '<';
+    char bigger = '>';
+
+    g.addEdge(tobias,martin, smaller);
+    g.addEdge(tobias,lisa, bigger);
+    g.addEdge(lilli,lisa, bigger);
+    g.addEdge(lilli,tom, smaller);
+    g.addEdge(tom,martin, smaller);
+    g.addEdge(lea,lisa, bigger);
+    g.addEdge(sebastian,tobias, bigger);
+    cout << (isCyclic(g) ? "impossible" : "possible") << endl;
+}
 
 int main() {
-    measureTime(exercise);
+    measureTime(test);
     return 0;
 }
