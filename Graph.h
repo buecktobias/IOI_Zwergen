@@ -7,7 +7,11 @@
 #include "Node.h"
 #include <vector>
 using namespace std;
-class Graph{
+struct Graph{
     vector<Node*> nodes;
+    void addNode(Node* newNode);
+    Node* containsNode(Node* nodeTested);
+    void addEdge(string& str_node1, string& str_node2, char& comparator);
+    friend ostream &operator<<(ostream &os, const Graph &graph);
 };
 #endif //IOI_ZWERGEN_GRAPH_H

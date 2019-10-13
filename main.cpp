@@ -7,7 +7,7 @@
 #include "stdio.h"
 #include "string.h"
 #include <unistd.h>
-#include "Graph.cpp"
+#include "Graph.h"
 
 
 struct sysinfo memInfo;
@@ -92,7 +92,7 @@ void exercise(){
         cin >> name1;
         cin >> comparator;
         cin >> name2;
-        graph.addEdge(name1,name2,comparator)
+        graph.addEdge(name1,name2,comparator);
     }
     cout << graph;
     //

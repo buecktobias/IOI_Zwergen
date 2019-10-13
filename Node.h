@@ -11,8 +11,7 @@
 
 using namespace std;
 
-class Node{
-public:
+struct Node{
     string name;
     vector<Edge> edges;
     explicit Node(string name) : name(std::move(name)) {}
@@ -22,4 +21,5 @@ public:
     [[nodiscard]] string toString() const;
     friend ostream &operator<<(ostream &os, const Node &node);
 };
+
 #endif //IOI_ZWERGEN_NODE_H
