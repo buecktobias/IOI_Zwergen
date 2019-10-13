@@ -10,8 +10,8 @@
 
 using namespace std;
 struct Graph{
-    vector<Node*> nodes;
-    unordered_map<string,Node*> nodes_map;
+    list<Node*> nodes;
+    unordered_map<string, Node*> nodes_map;
     Node* getNode(const string& key) const;
     void addNode(Node* newNode);
     Node* containsNode(Node* nodeTested);

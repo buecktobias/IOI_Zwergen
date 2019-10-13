@@ -3,22 +3,19 @@
 //
 #include <string>
 #include <utility>
-#include <vector>
 #include "Node.h"
 
 
 using namespace std;
 
-[[nodiscard]] vector<Node*> Node::getNeighbours() const{
-    vector<Node*> result;
-    for(Edge edge: this->edges){
-        if(edge.from == this){
-            result.push_back(edge.to);
-        }
-    }
-    return result;
+[[nodiscard]] list<Node*> Node::getNeighbours() const{
+    return neighbours;
 }
 Node::Node(string name):name(std::move(name)) {}
+
+void Node::addNeighbour(Node *node) {
+    this->neighbours.push_back(node);
+}
 
 void Node::addEdge(const Edge& newEdge){
     this->edges.push_back(newEdge);
@@ -30,12 +27,10 @@ bool Node::operator==(const Node &rhs) const {
 
 [[nodiscard]] string Node::toString() const {
     string nodesString;
-    vector<Node*> neighbours = this->getNeighbours();
-    for(unsigned long i = 0; i < neighbours.size(); i++){
-        nodesString += neighbours[i]->name;
-        if(i != neighbours.size()-1){
-            nodesString += ", ";
-        }
+    list<Node*> neighbours = this->getNeighbours();
+    for(Node* node: neighbours){
+        nodesString += node->name;
+        nodesString += ", ";
     }
     return this->name + "-> " + nodesString + "\n";
 }

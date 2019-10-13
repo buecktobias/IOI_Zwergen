@@ -1,5 +1,4 @@
 #include <iostream>
-#include <vector>
 #include <string>
 #include <chrono>
 #include "sys/sysinfo.h"
@@ -99,7 +98,6 @@ bool dfs(const Graph& graph, Node* currentNode, unordered_map<string,bool>& visi
 
 
 Node* nodeNotVisited(const Graph& g, const unordered_map<string, bool>& visited){
-    vector<Node*> result;
     for(pair<string,bool> kv:visited){
         if(!kv.second){
             return g.getNode(kv.first);
@@ -156,6 +154,6 @@ void exercise(){
 
 
 int main() {
-    exercise();
+    measureTime(exercise);
     return 0;
 }

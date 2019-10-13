@@ -7,15 +7,18 @@
 
 #include <string>
 #include <vector>
+#include <list>
 #include "Edge.h"
 
 using namespace std;
 
 struct Node{
     string name;
-    vector<Edge> edges;
+    list<Edge> edges;
+    list<Node*> neighbours;
+    void addNeighbour(Node* node);
     explicit Node(string name);
-    [[nodiscard]] vector<Node*> getNeighbours() const;
+    [[nodiscard]] list<Node*> getNeighbours() const;
     void addEdge(const Edge& newEdge);
     bool operator==(const Node &rhs) const;
     [[nodiscard]] string toString() const;

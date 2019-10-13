@@ -37,14 +37,18 @@ void Graph::addEdge(string& str_node1, string& str_node2, char& comparator){
     if(comparator == '>'){
         newEdge.from = node1;
         newEdge.to = node2;
+        node1->addEdge(newEdge);
+        node1->addNeighbour(node2);
     }else if(comparator == '<'){
         newEdge.from = node2;
         newEdge.to = node1;
+        node2->addEdge(newEdge);
+        node2->addNeighbour(node1);
     }else{
         __throw_invalid_argument("comparator is incorrect !!");
     }
-    node1->addEdge(newEdge);
-    node2->addEdge(newEdge);
+
+
 }
 
 
