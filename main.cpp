@@ -98,14 +98,14 @@ bool dfs(const Graph& graph, Node* currentNode, unordered_map<string,bool>& visi
 }
 
 
-vector<Node*> nodesNotVisited(const Graph& g, const unordered_map<string, bool>& visited){
+Node* nodeNotVisited(const Graph& g, const unordered_map<string, bool>& visited){
     vector<Node*> result;
     for(pair<string,bool> kv:visited){
         if(!kv.second){
-            result.push_back(g.getNode(kv.first));
+            return g.getNode(kv.first);
         }
     }
-    return result;
+    return nullptr;
 }
 
 
@@ -124,13 +124,12 @@ bool isCyclic(const Graph& g){
         visited[node->name] = false;
     }
     unordered_set<string> visitedBefore;
-    while(!nodesNotVisited(g, visited).empty()){
-        Node* node = nodesNotVisited(g,visited)[0];
+    while(nodeNotVisited(g, visited) != nullptr){
+        Node* node = nodeNotVisited(g,visited);
         if(dfs(g,node,visited, visitedBefore)){
             return true;
         }
         addAllNodesVisitedToVisitedBefore(visited,visitedBefore);
-        // add all nodes visited to visited before;
     }
     return false;
 }
